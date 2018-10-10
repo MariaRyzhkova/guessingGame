@@ -4,6 +4,7 @@ from pprint import pprint
 with open('stats.txt', 'r+') as f:
     answers = dict()
     for line in f:
+        # удаляем начальные пробелы слева в первой строке
         name, count = line.lstrip().split()
         answers.update({name: int(count)})
     yourName = input("Введите ваше имя: ")
@@ -40,14 +41,10 @@ with open('stats.txt', 'r+') as f:
     else:
         # очищаем содержимое, если угадали
         f.truncate(0)
-        # дикий костыль, чтобы сместить курсор в начало файла
-        # f.seek(0)
         ansItems = sorted(answers.items(), key=lambda x: x[1])
         for name, count in ansItems[:3]:
             ans = str(name + " " + str(count) + "\n")
             f.write(ans)
-
-        # del answers
         pprint("Обновленная статистика по игре: " + str([{name:count} for name, count in ansItems[:3]]))
         print("Рейтинг игры")
         i = 1
